@@ -8,18 +8,22 @@ app.use(express.json());
 app.use(cors());
 
 
-//Get full data from equipment
+//Get full equipment data
 app.get('/api/equipment', async(req, res) =>{
     const {data, error} = await supabase
     .from('equipment')
-    .select()
+    .select("*")
     if (error) return res.status(500).json({ error });
     res.json(data)
 })
 
+//Get full location data
 app.get('/api/locations', async(req, res) =>{
-    let message = {message: "ok"}
-    res.json(message)
+    const {data, error} = await supabase
+    .from('location')
+    .select("*")
+    if (error) return res.status(500).json({ error });
+    res.json(data)
 })
 
 
