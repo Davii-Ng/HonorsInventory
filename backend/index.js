@@ -1,23 +1,44 @@
 import express from "express";
 import { supabase } from "./lib/supabase.js";
+import cors from "cors";
 
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 
-
-app.get('/', async (request, response) =>{
+//Get full data from equipment
+app.get('/api/equipment', async(req, res) =>{
     const {data, error} = await supabase
     .from('equipment')
     .select()
+    if (error) return res.status(500).json({ error });
+    res.json(data)
+})
 
-    response.json(data)
-});
+app.get('/api/locations', async(req, res) =>{
+    let message = {message: "ok"}
+    res.json(message)
+})
 
-app.get('/api/data', (request, response) =>{
-    response.json(data)
-});
+
+app.post('/api/equipment', async(req,res) =>{
+    let message = {message: "ok"}
+    res.json(message)
+})
+
+app.put('/api/equipment/:id', async(req, res) =>{
+    let message = {message: "ok"}
+    res.json(message)
+})
+
+app.delete('/api/equipment/:id', async(req, res) =>{
+    let message = {message: "ok"}
+    res.json(message)
+})
+
+
 
 const PORT = 3001
 app.listen(PORT, () =>{

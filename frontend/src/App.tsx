@@ -1,2 +1,6 @@
-import { useState } from "react";
 
+export default function EquipmentList() {
+return(
+  <div>Hello</div>
+)
+}
