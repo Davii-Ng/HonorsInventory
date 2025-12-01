@@ -44,10 +44,16 @@ app.put('/api/equipment/:id', async(req, res) =>{
     res.json(message)
 })
 
+
+// Delete items
 app.delete('/api/equipment/:id', async(req, res) =>{
-    let message = {message: "ok"}
-    res.json(message)
-})
+    const id = req.params.id
+    const response = await supabase
+    .from('equipment')
+    .delete()
+    .eq('id', id)
+    return res.status(201).json({ message: "deleted" });
+});
 
 
 
