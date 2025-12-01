@@ -38,10 +38,15 @@ app.post('/api/equipment', async(req,res) =>{
 })
 
 
-
+//Update equipments
 app.put('/api/equipment/:id', async(req, res) =>{
-    let message = {message: "ok"}
-    res.json(message)
+    const id = req.params.id
+    const {error} = await supabase
+    .from('equipment')
+    .update(req.body)
+    .eq('id', id)
+    if (error) return res.status(500).json({ error });
+    return res.status(201).json({ message: "updated" });
 })
 
 
