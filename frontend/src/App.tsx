@@ -26,6 +26,26 @@ export default function App(){
     load()
   }, []);
 
+
+  async function handleDelete(id: number){
+    try{
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${id}`, {
+        method: "DELETE"
+      })
+      
+
+      if (!res.ok) {
+            console.error("Failed to delete");
+            return;
+          }
+
+    setItem(item.filter(item => item.id !== id))
+    
+    } catch(err){
+      console.log("Failed to fetch", err)
+    }
+  }
+
   return (
   <div>
     <table>
@@ -45,6 +65,8 @@ export default function App(){
             <th>{item.model}</th>
             <th>{item.equipment_type}</th>
             <th>{item.location}</th>
+            <td><button>Update</button></td>
+            <td><button onClick={() =>{handleDelete(item.id)}} >Delete</button></td>
           </tr>
         ))}
       </tbody>
