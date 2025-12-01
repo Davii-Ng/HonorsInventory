@@ -11,6 +11,8 @@ interface Equipment {
 export default function App(){
   const [item, setItem] = useState<Equipment []>([]);
 
+
+  // Load data
   useEffect(() => {
     const load = async () => {
       try{
@@ -40,7 +42,7 @@ export default function App(){
           }
 
     setItem(item.filter(item => item.id !== id))
-    
+
     } catch(err){
       console.log("Failed to fetch", err)
     }
@@ -65,12 +67,13 @@ export default function App(){
             <th>{item.model}</th>
             <th>{item.equipment_type}</th>
             <th>{item.location}</th>
-            <td><button>Update</button></td>
+            <td><button>Edit</button></td>
             <td><button onClick={() =>{handleDelete(item.id)}} >Delete</button></td>
           </tr>
         ))}
       </tbody>
     </table>
+    <button> Add Equipment</button>
   </div>
 )
 }
