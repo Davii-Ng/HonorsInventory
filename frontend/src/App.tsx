@@ -36,12 +36,22 @@ export default function App(){
 
   
   const handleSave = async() =>{
-    await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${editItem?.id}`,{
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${editItem?.id}`,{
       method: "PUT",
       headers : {"Content-Type": "application/json"},
-      body: JSON.stringify(editItem)
+      body: JSON.stringify({
+        model: editItem?.model,
+        equipment_type: editItem?.equipment_type,
+        location: editItem?.location
+      })
     });
 
+    const result = res.json();
+
+    if (!res.ok) {
+    alert("Update failed: " + result.error?.message);
+    return; // stop here, DO NOT close modal or reload
+  }
 
     setIsModalOpen(false);
     load();
