@@ -26,11 +26,18 @@ app.get('/api/locations', async(req, res) =>{
     res.json(data)
 })
 
-
+//Add new items
 app.post('/api/equipment', async(req,res) =>{
-    let message = {message: "ok"}
-    res.json(message)
+    console.log(req.body)
+    const {error} = await supabase
+    .from('equipment')
+    .insert(req.body)
+    if (error) return res.status(500).json({ error });
+    return res.status(201).json({ message: "Equipment added" });
+
 })
+
+
 
 app.put('/api/equipment/:id', async(req, res) =>{
     let message = {message: "ok"}
@@ -48,3 +55,4 @@ const PORT = 3001
 app.listen(PORT, () =>{
     console.log(`Server running on ${PORT}`)
 });
+
