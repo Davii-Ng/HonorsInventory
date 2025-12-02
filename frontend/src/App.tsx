@@ -17,9 +17,16 @@ interface Location {
 
 export default function App(){
   const [item, setItem] = useState<Equipment []>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editItem,setEditItem] = useState<Equipment|null>(null);
-  const [newItem, setNewItem] = useState<Equipment>();
+  const [newItem, setNewItem] = useState({
+  model: "",
+  equipment_type: "",
+  location: ""
+}); 
+  const [isAddOpen, setIsAddOpen] = useState(true);
+
+
   const [location, setLocation] = useState<string[]>([]);
 
  
@@ -55,9 +62,19 @@ export default function App(){
   }, []);
 
 
+  const handleAdd = async () => {
+  await fetch(`${import.meta.env.VITE_API_URL}/api/equipment`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newItem)
+  });
+
+  setIsAddOpen(false);
+  load(); 
+};
 
   
-  const handleSave = async() =>{
+  const handleEdit = async() =>{
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${editItem?.id}`,{
       method: "PUT",
       headers : {"Content-Type": "application/json"},
@@ -127,6 +144,8 @@ export default function App(){
         ))}
       </tbody>
     </table>
+
+    
     {isModalOpen && (
       <div>
         <div>
@@ -139,7 +158,7 @@ export default function App(){
           onChange = {(e) =>
             setEditItem({...editItem, model: e.target.value})
           }
-          ></input>
+          />
 
           <input
           type = "text"
@@ -147,7 +166,7 @@ export default function App(){
           onChange = {(e) =>
             setEditItem({...editItem, equipment_type: e.target.value})
           }
-          ></input>
+          />
 
           <input
           type = "text"
@@ -155,17 +174,54 @@ export default function App(){
           onChange = {(e) =>
             setEditItem({...editItem, location: e.target.value})
           }
-          ></input>
+          />
 
-          <button onClick = {handleSave}>Save</button>
+          <button onClick = {handleEdit}>Save</button>
           <button onClick = {() => setIsModalOpen(false)}>Cancel</button>
         </div>
       </div>
     )}
 
-    
 
-    <button> Add Equipment</button>
+    <button onClick = {() => setIsAddOpen(true)}> Add Equipment</button>
+
+  {isAddOpen && (
+    <div>
+      <div>
+        <h2>Add Equipment</h2>
+
+        <input
+          type="text"
+          placeholder="Model"
+          value={newItem.model}
+          onChange={(e) => 
+            setNewItem({ ...newItem, model: e.target.value })}
+        />
+
+        <input
+          type="text"
+          placeholder="Equipment Type"
+          value={newItem.equipment_type}
+          onChange={(e) =>
+            setNewItem({ ...newItem, equipment_type: e.target.value })
+          }
+        />
+
+        <input
+          type="text"
+          placeholder="Location"
+          value={newItem.location}
+          onChange={(e) =>
+            setNewItem({ ...newItem, location: e.target.value })
+          }
+        />
+
+        <button onClick={handleAdd}>Save</button>
+        <button onClick={() => setIsAddOpen(false)}>Cancel</button>
+      </div>
+    </div>
+)}
+
   </div>
 )
 }
