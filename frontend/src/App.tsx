@@ -119,7 +119,7 @@ export default function App(){
   return (
   <div>
     <table>
-      <caption>Equipment List</caption>
+      <caption>HONORS INVENTORY</caption>
       <thead>
 
           <th>Equipment ID</th>
