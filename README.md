@@ -4,9 +4,9 @@ Equipment tracking with React, Express, and PostgreSQL.
 
 ## Setup
 
-1. **Database**: Run `init.SQL` in Supabase, disable RLS
+1. **Database**:  Create Supabase project, run `init.SQL` in Supabase, disable RLS
 2. **Backend**: `cd backend && npm install && npm start`
-3. **Frontend**: `cd frontend && npm install && npm run dev`
+3. **Frontend**: `cd frontend && delete node_modules && npm install && npm run dev`
 
 Create `backend/.env`:
 ```
