@@ -24,7 +24,7 @@ export default function App(){
   equipment_type: "",
   location: ""
 }); 
-  const [isAddOpen, setIsAddOpen] = useState(true);
+  const [isAddOpen, setIsAddOpen] = useState(false);
 
 
   const [location, setLocation] = useState<string[]>([]);
@@ -126,6 +126,7 @@ export default function App(){
           <th>Model</th>
           <th>Equipment Type</th>
           <th>Location</th>
+          <td><button onClick = {() => setIsAddOpen(true)}> Add Equipment</button></td>
         </tr>
       </thead>
       <tbody>
@@ -135,11 +136,11 @@ export default function App(){
             <th>{equipment.model}</th>
             <th>{equipment.equipment_type}</th>
             <th>{equipment.location}</th>
-            <td><button onClick = {() => {
+            <td><button className = "primary" onClick = {() => {
               setEditItem(equipment);  
               setIsModalOpen(true);
               }}>Edit</button></td>
-            <td><button onClick={() =>{handleDelete(equipment.id)}} >Delete</button></td>
+            <td><button className = "primary" onClick={() =>{handleDelete(equipment.id)}} >Delete</button></td>
           </tr>
         ))}
       </tbody>
@@ -147,47 +148,50 @@ export default function App(){
 
     
     {isModalOpen && (
-      <div>
-        <div>
-          <h2>Edit Equipment</h2>
+  <div className="modal-overlay">
+    <div className="modal-container">
+      <h2>Edit Equipment</h2>
+
+      <input
+        type="text"
+        value={editItem?.model}
+        onChange={(e) =>
+          setEditItem({ ...editItem!, model: e.target.value })
+        }
+      />
+
+      <input
+        type="text"
+        value={editItem?.equipment_type}
+        onChange={(e) =>
+          setEditItem({ ...editItem!, equipment_type: e.target.value })
+        }
+      />
+
+      <input
+        type="text"
+        value={editItem?.location ?? ""}
+        onChange={(e) =>
+          setEditItem({ ...editItem!, location: e.target.value })
+        }
+      />
+
+      <button className="btn btn-save" onClick={handleEdit}>
+        Save
+      </button>
+      <button className="btn btn-cancel" onClick={() => setIsModalOpen(false)}>
+        Cancel
+      </button>
+    </div>
+  </div>
+)}
 
 
-          <input
-          type = "text"
-          value = {editItem?.model}
-          onChange = {(e) =>
-            setEditItem({...editItem, model: e.target.value})
-          }
-          />
 
-          <input
-          type = "text"
-          value = {editItem?.equipment_type}
-          onChange = {(e) =>
-            setEditItem({...editItem, equipment_type: e.target.value})
-          }
-          />
-
-          <input
-          type = "text"
-          value = {editItem?.location}
-          onChange = {(e) =>
-            setEditItem({...editItem, location: e.target.value})
-          }
-          />
-
-          <button onClick = {handleEdit}>Save</button>
-          <button onClick = {() => setIsModalOpen(false)}>Cancel</button>
-        </div>
-      </div>
-    )}
-
-
-    <button onClick = {() => setIsAddOpen(true)}> Add Equipment</button>
 
   {isAddOpen && (
-    <div>
-      <div>
+    <div className="modal-overlay">
+        <div className="modal-container">
         <h2>Add Equipment</h2>
 
         <input
@@ -216,8 +220,8 @@ export default function App(){
           }
         />
 
-        <button onClick={handleAdd}>Save</button>
-        <button onClick={() => setIsAddOpen(false)}>Cancel</button>
+        <button className="btn btn-save" onClick={handleAdd}>Save</button>
+        <button className="btn btn-cancel" onClick={() => setIsAddOpen(false)}>Cancel</button>
       </div>
     </div>
 )}
