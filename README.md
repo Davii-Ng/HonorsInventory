@@ -12,7 +12,6 @@ Create `backend/.env`:
 ```
 SUPABASE_URL=your_url
 SUPABASE_ANON_KEY=your_key
-PORT=3000
 ```
 
 Create `frontend/.env`:

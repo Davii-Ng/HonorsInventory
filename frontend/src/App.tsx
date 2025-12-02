@@ -171,7 +171,7 @@ export default function App(){
 
       <input
         type="text"
-        value={editItem?.location ?? ""}
+        value={editItem?.location}
         onChange={(e) =>
           setEditItem({ ...editItem!, location: e.target.value })
         }
