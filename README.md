@@ -1,19 +1,25 @@
 # Honors Inventory Management System
 
-A full-stack inventory management system built for the Honors IT Team coding challenge. This application allows users to track, manage, and transfer equipment across different locations (classrooms, offices, and warehouse).
+Equipment tracking with React, Express, and PostgreSQL.
 
-## 🚀 Features
+## Setup
 
-- **View Equipment**: Display all equipment with their current locations
-- **Add Equipment**: Add new equipment items (automatically assigned to warehouse)
-- **Edit Equipment**: Update equipment model and type
-- **Transfer Equipment**: Move equipment between locations
-- **Delete Equipment**: Remove obsolete or broken equipment
-- **Location Management**: View all available locations
+1. **Database**: Run `init.SQL` in Supabase, disable RLS
+2. **Backend**: `cd backend && npm install && npm start`
+3. **Frontend**: `cd frontend && npm install && npm run dev`
 
-## 🛠️ Tech Stack
+Create `backend/.env`:
+```
+SUPABASE_URL=your_url
+SUPABASE_ANON_KEY=your_key
+PORT=3000
+```
 
-### Frontend
-- **React** with **TypeScript**
-- **Next.js 15** (App Router)
-- **Tailwind CSS** for styling
+Create `frontend/.env`:
+VITE_API_URL = http://localhost:3001
+
+## Features
+View, add, edit, delete, and transfer equipment between locations.
+
+## Tech
+React + TypeScript | Express | PostgreSQL (Supabase)

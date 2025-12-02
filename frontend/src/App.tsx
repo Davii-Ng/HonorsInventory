@@ -121,22 +121,22 @@ export default function App(){
     <table>
       <caption>HONORS INVENTORY</caption>
       <thead>
-
+        <tr>
           <th>Equipment ID</th>
           <th>Model</th>
           <th>Equipment Type</th>
           <th>Location</th>
-          <td><button  onClick = {() => setIsAddOpen(true)}> Add Equipment</button></td>
+          <th><button  onClick = {() => setIsAddOpen(true)}> Add Equipment</button></th>
           <th></th>
-
+        </tr>
       </thead>
       <tbody>
         {item.map((equipment) => ( 
-          <tr key = {equipment.id}>
-            <th>{equipment.id}</th>
-            <th>{equipment.model}</th>
-            <th>{equipment.equipment_type}</th>
-            <th>{equipment.location}</th>
+          <tr className = "trhover" key = {equipment.id}>
+            <td>{equipment.id}</td>
+            <td>{equipment.model}</td>
+            <td>{equipment.equipment_type}</td>
+            <td>{equipment.location}</td>
             <td><button className = "primary" onClick = {() => {
               setEditItem(equipment);  
               setIsModalOpen(true);

@@ -52,7 +52,7 @@ th, td {
   border-bottom: 1px solid #e5e5e5;
 }
 
-tr:hover {
+.trhover:hover {
   background-color: #e6f2ee; /* light green */
 }
 
