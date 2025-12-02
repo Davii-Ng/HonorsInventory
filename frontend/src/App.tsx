@@ -121,13 +121,14 @@ export default function App(){
     <table>
       <caption>Equipment List</caption>
       <thead>
-        <tr>
+
           <th>Equipment ID</th>
           <th>Model</th>
           <th>Equipment Type</th>
           <th>Location</th>
-          <td><button onClick = {() => setIsAddOpen(true)}> Add Equipment</button></td>
-        </tr>
+          <td><button  onClick = {() => setIsAddOpen(true)}> Add Equipment</button></td>
+          <th></th>
+
       </thead>
       <tbody>
         {item.map((equipment) => ( 
