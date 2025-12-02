@@ -17,6 +17,9 @@ SUPABASE_ANON_KEY=your_key
 Create `frontend/.env`:
 VITE_API_URL = http://localhost:3001
 
+If everything goes well it should be looking something like this:
+![alt text](image.png)
+
 ## Features
 View, add, edit, delete, and transfer equipment between locations.
 

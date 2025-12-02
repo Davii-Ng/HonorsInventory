@@ -213,7 +213,7 @@ export default function App(){
         />
 
         <select value = {newItem?.location} onChange={(e) =>
-          setEditItem({ ...newItem!, location: e.target.value })
+          setNewItem({ ...newItem!, location: e.target.value })
         }>
         {location.map((loc) => (
         <option key={loc} value={loc}>{loc}</option>
