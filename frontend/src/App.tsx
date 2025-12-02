@@ -169,13 +169,13 @@ export default function App(){
         }
       />
 
-      <input
-        type="text"
-        value={editItem?.location}
-        onChange={(e) =>
+      <select value = {editItem?.location} onChange={(e) =>
           setEditItem({ ...editItem!, location: e.target.value })
-        }
-      />
+        }>
+        {location.map((loc) => (
+        <option key={loc} value={loc}>{loc}</option>
+  ))}
+      </select>
 
       <button className="btn btn-save" onClick={handleEdit}>
         Save
@@ -212,14 +212,13 @@ export default function App(){
           }
         />
 
-        <input
-          type="text"
-          placeholder="Location"
-          value={newItem.location}
-          onChange={(e) =>
-            setNewItem({ ...newItem, location: e.target.value })
-          }
-        />
+        <select value = {newItem?.location} onChange={(e) =>
+          setEditItem({ ...newItem!, location: e.target.value })
+        }>
+        {location.map((loc) => (
+        <option key={loc} value={loc}>{loc}</option>
+  ))}
+      </select>
 
         <button className="btn btn-save" onClick={handleAdd}>Save</button>
         <button className="btn btn-cancel" onClick={() => setIsAddOpen(false)}>Cancel</button>
