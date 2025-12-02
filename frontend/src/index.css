@@ -1,0 +1,104 @@
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* PAGE BACKGROUND */
+body {
+  background-color: #f8fdfb; /* soft green tint */
+  color: #1f1f1f;
+}
+
+/* HEADER */
+header {
+  background-color: #006747;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* TABLE */
+table {
+  width: 90%;
+  margin: 2rem auto;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+table caption {
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #006747;
+}
+
+thead {
+  background-color: #006747;
+  color: white;
+}
+
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+tr:hover {
+  background-color: #e6f2ee; /* light green */
+}
+
+/* BUTTONS */
+button {
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Primary (Edit, Add) */
+button.primary {
+  background-color: #006747;
+  color: white;
+}
+
+/* Danger (Delete) */
+button.danger {
+  background-color: #c62828;
+  color: white;
+}
+
+/* MODAL BACKDROP */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* MODAL BOX */
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  color: #006747;
+}
