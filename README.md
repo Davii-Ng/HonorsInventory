@@ -6,7 +6,7 @@ Equipment tracking with React, Express, and PostgreSQL.
 
 1. **Database**:  Create Supabase project, run `init.SQL` in Supabase, disable RLS
 2. **Backend**: `cd backend && npm install && npm start`
-3. **Frontend**: `cd frontend && delete node_modules && npm install && npm run dev`
+3. **Frontend**: `cd frontend && npm install && npm run dev`
 
 Create `backend/.env`:
 ```
@@ -14,7 +14,7 @@ SUPABASE_URL=your_url
 SUPABASE_ANON_KEY=your_key
 ```
 Notes:\
-Supabase only allows 2 free projects, so consider using a different account if you have already used up the two free projects\ 
+Supabase only allows 2 free projects, so consider using a different account if you have already used up the two free projects
 
 To get your keys, go to dashboard -> hover your cursor to the left -> find Project Settings then: 
 
