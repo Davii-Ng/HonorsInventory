@@ -13,7 +13,7 @@ Create `backend/.env`:
 SUPABASE_URL=your_url
 SUPABASE_ANON_KEY=your_key
 ```
-Notes: 
+Notes:\
 Supabase only allows 2 free projects, so consider using a different account if you have already used up the two free projects\ 
 
 To get your keys, go to dashboard -> hover your cursor to the left -> find Project Settings then: 
