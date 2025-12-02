@@ -8,31 +8,53 @@ interface Equipment {
   location: string | null;
 }
 
+interface Location {
+  id: number;
+  roomname: string;
+  building_type: string;
+}
+
+
 export default function App(){
   const [item, setItem] = useState<Equipment []>([]);
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editItem,setEditItem] = useState<Equipment|null>(null);
+  const [newItem, setNewItem] = useState<Equipment>();
+  const [location, setLocation] = useState<string[]>([]);
+
  
   
-
+  // Load data from backend
   const load = async () => {
       try{
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment`)
-        console.log('res', res)
+        
 
         const data: Equipment[] = await res.json()
-        console.log('Data: ', data)
+        
 
         setItem(data)
+
       } catch (err){
         console.log("Failed to fetch", err);
       }
     };
 
-  // Load data
+    const fetchLocation = async() =>{
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/locations`)
+      console.log('res', res)
+      const data : Location[] = await res.json()
+      console.log('Data: ', data)
+      setLocation(data.map(loc => loc.roomname));
+  }
+
+
   useEffect(() => {
     load()
+    fetchLocation()
   }, []);
+
+
 
   
   const handleSave = async() =>{
@@ -50,7 +72,7 @@ export default function App(){
 
     if (!res.ok) {
     alert("Update failed: " + result.error?.message);
-    return; // stop here, DO NOT close modal or reload
+    return; // stop here if error
   }
 
     setIsModalOpen(false);

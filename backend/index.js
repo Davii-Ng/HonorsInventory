@@ -17,7 +17,7 @@ app.get('/api/equipment', async(req, res) =>{
     res.json(data)
 })
 
-//Get full location data
+//Get full location data for data validation
 app.get('/api/locations', async(req, res) =>{
     const {data, error} = await supabase
     .from('location')
@@ -45,7 +45,8 @@ app.put('/api/equipment/:id', async(req, res) =>{
     .from('equipment')
     .update(req.body)
     .eq('id', id)
-    if (error) return res.status(500).json({ error });
+
+    if (error) return res.status(400).json({ error: "Invalid room" });
     return res.status(201).json({ message: "updated" });
 })
 
