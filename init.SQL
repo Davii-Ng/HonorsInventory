@@ -6,14 +6,14 @@ CREATE TABLE locations (
 );
 
 
-CREATE TABLE equipment (
+CREATE TABLE equipments (
   id SERIAL PRIMARY KEY,
   model TEXT NOT NULL,
   equipment_type TEXT NOT NULL,
   location TEXT REFERENCES locations(room_name) ON DELETE SET NULL
 );
 
-INSERT INTO location (room_name, building_type) VALUES
+INSERT INTO locations (room_name, building_type) VALUES
   ('HON Warehouse', 'Warehouse'),
   ('HON 3017', 'Classroom'),
   ('HON 3025', 'Classroom'),
@@ -36,7 +36,7 @@ INSERT INTO location (room_name, building_type) VALUES
   ('HON 4102', 'Office');
 
 
-INSERT INTO equipment (model, equipment_type, location) VALUES
+INSERT INTO equipments (model, equipment_type, location) VALUES
   ('HP LaserJet', 'Printer', 'HON 3017'),
   ('Samsung Monitor', 'Monitor', 'HON 3017'),
   ('Canon Printer', 'Printer', 'HON 3025'),
