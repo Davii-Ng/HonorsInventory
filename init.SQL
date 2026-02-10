@@ -10,10 +10,10 @@ CREATE TABLE equipment (
   id SERIAL PRIMARY KEY,
   model TEXT NOT NULL,
   equipment_type TEXT NOT NULL,
-  location TEXT REFERENCES locations(roomname) ON DELETE SET NULL
+  location TEXT REFERENCES locations(room_name) ON DELETE SET NULL
 );
 
-INSERT INTO location (roomname, building_type) VALUES
+INSERT INTO location (room_name, building_type) VALUES
   ('HON Warehouse', 'Warehouse'),
   ('HON 3017', 'Classroom'),
   ('HON 3025', 'Classroom'),
