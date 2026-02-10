@@ -32,6 +32,7 @@ export default function App(){
 
 
   const [location, setLocation] = useState<Location[]>([]);
+  const [searchQuery, setSearchQuery] = useState("")
 
  
   
@@ -54,7 +55,6 @@ export default function App(){
     const fetchLocation = async() =>{
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/locations`)
       const data : Location[] = await res.json()
-      console.log("FETCHED DATA:", data[0]);
       setLocation(data);
   }
 
@@ -161,6 +161,30 @@ const handleAdd = async () => {
 
   return (
   <div>
+    <div style={{ marginBottom: '20px' }}>
+      <input
+        type="text"
+        placeholder="🔍 Search equipment..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        style={{
+          width: '100%',
+          maxWidth: '400px',
+          padding: '10px',
+          fontSize: '16px',
+          border: '1px solid #ddd',
+          borderRadius: '4px'
+        }}
+      />
+      {searchQuery && (
+        <button 
+          onClick={() => setSearchQuery('')}
+          style={{ marginLeft: '10px', cursor: 'pointer' }}
+        >
+          Clear
+        </button>
+      )}
+    </div>
     <table>
       <caption>HONORS INVENTORY</caption>
       <thead>
@@ -174,7 +198,19 @@ const handleAdd = async () => {
         </tr>
       </thead>
       <tbody>
-        {item.map((equipment) => ( 
+        {item
+        .filter((equipment) =>{
+          if (!searchQuery) return true;
+
+          const search = searchQuery.toLowerCase();
+          const model = equipment.model.toLowerCase() || '';
+          const type = equipment.equipment_type?.toLowerCase() || '';
+          const location = equipment.locations?.room_name.toLowerCase() || '';
+
+          return model.includes(search) || type.includes(search) || location.includes(search);
+        }) 
+
+        .map((equipment) => ( 
           <tr className = "trhover" key = {equipment.id}>
             <td>{equipment.id}</td>
             <td>{equipment.model}</td>
