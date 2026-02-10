@@ -10,7 +10,7 @@ interface Equipment {
 
 interface Location {
   id: number;
-  roomname: string;
+  room_name: string;
   building_type: string;
 }
 
@@ -52,7 +52,7 @@ export default function App(){
       console.log('res', res)
       const data : Location[] = await res.json()
       console.log('Data: ', data)
-      setLocation(data.map(loc => loc.roomname));
+      setLocation(data.map(loc => loc.room_name));
   }
 
 

@@ -11,7 +11,7 @@ app.use(cors());
 //Get full equipment data
 app.get('/api/equipment', async(req, res) =>{
     const {data, error} = await supabase
-    .from('equipment')
+    .from('equipments')
     .select("*")
     if (error) return res.status(500).json({ error });
     res.json(data)
@@ -20,7 +20,7 @@ app.get('/api/equipment', async(req, res) =>{
 //Get full location data for data validation
 app.get('/api/locations', async(req, res) =>{
     const {data, error} = await supabase
-    .from('location')
+    .from('locations')
     .select("*")
     if (error) return res.status(500).json({ error });
     res.json(data)
@@ -30,7 +30,7 @@ app.get('/api/locations', async(req, res) =>{
 app.post('/api/equipment', async(req,res) =>{
     console.log(req.body)
     const {error} = await supabase
-    .from('equipment')
+    .from('equipments')
     .insert(req.body)
     if (error) return res.status(500).json({ error });
     return res.status(201).json({ message: "Equipment added" });
@@ -42,7 +42,7 @@ app.post('/api/equipment', async(req,res) =>{
 app.put('/api/equipment/:id', async(req, res) =>{
     const id = req.params.id
     const {error} = await supabase
-    .from('equipment')
+    .from('equipments')
     .update(req.body)
     .eq('id', id)
 
@@ -55,7 +55,7 @@ app.put('/api/equipment/:id', async(req, res) =>{
 app.delete('/api/equipment/:id', async(req, res) =>{
     const id = req.params.id
     const response = await supabase
-    .from('equipment')
+    .from('equipments')
     .delete()
     .eq('id', id)
     return res.status(201).json({ message: "deleted" });
