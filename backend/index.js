@@ -20,7 +20,7 @@ app.get('/api/equipment', async(req, res) =>{
 //Get full location data for data validation
 app.get('/api/locations', async(req, res) =>{
     const {data, error} = await supabase
-    .from('location')
+    .from('locations')
     .select("*")
     if (error) return res.status(500).json({ error });
     res.json(data)
