@@ -5,7 +5,12 @@ interface Equipment {
   id: number;
   model: string;
   equipment_type: string;
-  location: string | null;
+  location_id: number;
+  locations?: {
+    id: number;
+    room_name: string;
+    building_type: string;
+  };
 }
 
 interface Location {
@@ -21,13 +26,12 @@ export default function App(){
   const [editItem,setEditItem] = useState<Equipment|null>(null);
   const [newItem, setNewItem] = useState({
   model: "",
-  equipment_type: "",
-  location: ""
+  equipment_type: ""
 }); 
   const [isAddOpen, setIsAddOpen] = useState(false);
 
 
-  const [location, setLocation] = useState<string[]>([]);
+  const [location, setLocation] = useState<Location[]>([]);
 
  
   
@@ -49,10 +53,9 @@ export default function App(){
 
     const fetchLocation = async() =>{
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/locations`)
-      console.log('res', res)
       const data : Location[] = await res.json()
-      console.log('Data: ', data)
-      setLocation(data.map(loc => loc.room_name));
+      console.log("FETCHED DATA:", data[0]);
+      setLocation(data);
   }
 
 
@@ -81,7 +84,6 @@ const handleAdd = async () => {
       body: JSON.stringify({
         model: newItem.model,
         equipment_type: newItem.equipment_type,
-        location: newItem.location,
       }),
     }
   );
@@ -95,8 +97,7 @@ const handleAdd = async () => {
 
   setNewItem({
   model: "",
-  equipment_type: "",
-  location: ""
+  equipment_type: ""
 });
 
   setIsAddOpen(false);
@@ -123,7 +124,7 @@ const handleAdd = async () => {
       body: JSON.stringify({
         model: editItem?.model,
         equipment_type: editItem?.equipment_type,
-        location: editItem?.location
+        location: editItem?.location_id
       })
     });
 
@@ -178,7 +179,7 @@ const handleAdd = async () => {
             <td>{equipment.id}</td>
             <td>{equipment.model}</td>
             <td>{equipment.equipment_type}</td>
-            <td>{equipment.location}</td>
+            <td>{equipment.locations?.room_name || 'No location'}</td>
             <td><button className = "primary" onClick = {() => {
               setEditItem(equipment);  
               setIsModalOpen(true);
@@ -211,12 +212,12 @@ const handleAdd = async () => {
         }
       />
 
-      <select value = {editItem?.location} onChange={(e) =>
-          setEditItem({ ...editItem!, location: e.target.value })
+      <select value = {editItem?.location_id} onChange={(e) =>
+          setEditItem({ ...editItem!, location_id: parseInt(e.target.value) })
         }>
         <option value="">-- Select a location --</option>
         {location.map((loc) => (
-        <option key={loc} value={loc}>{loc}</option>
+        <option key={loc.id} value={loc.id}>{loc.room_name}</option>
   ))}
       </select>
 
@@ -254,15 +255,6 @@ const handleAdd = async () => {
             setNewItem({ ...newItem, equipment_type: e.target.value })
           }
         />
-
-        <select value = {newItem?.location} onChange={(e) =>
-          setNewItem({ ...newItem!, location: e.target.value })
-        }>
-        <option value="">-- Select a location --</option>
-        {location.map((loc) => (
-        <option key={loc} value={loc}>{loc}</option>
-  ))}
-      </select>
 
         <button className="btn btn-save" onClick={handleAdd}>Save</button>
         <button className="btn btn-cancel" onClick={() => setIsAddOpen(false)}>Cancel</button>
