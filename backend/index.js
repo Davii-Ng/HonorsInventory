@@ -26,24 +26,36 @@ app.get('/api/locations', async(req, res) =>{
     res.json(data)
 })
 
+
+
 //Add new items
 app.post('/api/equipment', async(req,res) =>{
-    const { model, equipment_type } = req.body;
-    const {error} = await supabase
-    .from('equipments')
-    .insert(req.body)
-    if (error) return res.status(500).json({ error });
+    const { model, equipment_type, location } = req.body;
 
     if (!model || model.trim() === '') {
     return res.status(400).json({ error: 'Model is required' });
-  }
-  if (!equipment_type || equipment_type.trim() === '') {
-    return res.status(400).json({ error: 'Equipment type is required' });
+    }
+
+    if (!equipment_type || equipment_type.trim() === '') {
+        return res.status(400).json({ error: 'Equipment type is required' });
+    }
+
+    const { error } = await supabase
+    .from('equipments')
+    .insert({
+      model,
+      equipment_type,
+      location
+    });
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
   }
 
-    return res.status(201).json({ message: "Equipment added" });
+  return res.status(201).json({ message: 'Equipment added' });
+});
 
-})
+
 
 
 //Update equipments

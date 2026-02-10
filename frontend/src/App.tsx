@@ -62,38 +62,56 @@ export default function App(){
   }, []);
 
 
-  const handleAdd = async () => {
-  
-  if (!newItem.model.trim()) {
+const handleAdd = async () => {
+  if (!newItem.model?.trim()) {
     alert('Model is required');
     return;
   }
-  
-  if (!newItem.equipment_type.trim()) {
+
+  if (!newItem.equipment_type?.trim()) {
     alert('Equipment type is required');
     return;
   }
 
-  await fetch(`${import.meta.env.VITE_API_URL}/api/equipment`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newItem)
-  });
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/equipment`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: newItem.model,
+        equipment_type: newItem.equipment_type,
+        location: newItem.location,
+      }),
+    }
+  );
 
+  const result = await res.json(); 
+
+  if (!res.ok) {
+    alert('Add failed: ' + (result.error ?? 'Unknown error'));
+    return;   
+  }
+
+  setNewItem({
+  model: "",
+  equipment_type: "",
+  location: ""
+});
 
   setIsAddOpen(false);
-  load(); 
+  load();
 };
 
   
   const handleEdit = async() =>{
 
-    if (!editItem?.model.trim()) {
+    if (!(editItem?.model.trim())) {
     alert('Model is required');
     return;
    }
 
-    if (!editItem?.equipment_type.trim()) {
+    if (!(editItem?.equipment_type.trim())) {
       alert('Equipment type is required');
       return;
     }
@@ -109,13 +127,13 @@ export default function App(){
       })
     });
 
-    const result = res.json();
+    const result = await res.json();
 
     if (!res.ok) {
     alert("Update failed: " + result.error?.message);
     return; // stop here if error
   }
-
+    
     setIsModalOpen(false);
     load();
   };
@@ -196,6 +214,7 @@ export default function App(){
       <select value = {editItem?.location} onChange={(e) =>
           setEditItem({ ...editItem!, location: e.target.value })
         }>
+        <option value="">-- Select a location --</option>
         {location.map((loc) => (
         <option key={loc} value={loc}>{loc}</option>
   ))}
@@ -239,6 +258,7 @@ export default function App(){
         <select value = {newItem?.location} onChange={(e) =>
           setNewItem({ ...newItem!, location: e.target.value })
         }>
+        <option value="">-- Select a location --</option>
         {location.map((loc) => (
         <option key={loc} value={loc}>{loc}</option>
   ))}
