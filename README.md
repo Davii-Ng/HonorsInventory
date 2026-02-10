@@ -34,3 +34,7 @@ View, add, edit, delete, and transfer equipment between locations.
 
 ## Tech
 React + TypeScript | Express | PostgreSQL (Supabase)
+
+
+Changes: 
+1. Fix naming errors in init.SQL
