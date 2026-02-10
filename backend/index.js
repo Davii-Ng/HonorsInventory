@@ -28,27 +28,48 @@ app.get('/api/locations', async(req, res) =>{
 
 //Add new items
 app.post('/api/equipment', async(req,res) =>{
-    console.log(req.body)
+    const { model, equipment_type } = req.body;
     const {error} = await supabase
     .from('equipments')
     .insert(req.body)
     if (error) return res.status(500).json({ error });
+
+    if (!model || model.trim() === '') {
+    return res.status(400).json({ error: 'Model is required' });
+  }
+  if (!equipment_type || equipment_type.trim() === '') {
+    return res.status(400).json({ error: 'Equipment type is required' });
+  }
+
     return res.status(201).json({ message: "Equipment added" });
 
 })
 
 
 //Update equipments
-app.put('/api/equipment/:id', async(req, res) =>{
-    const id = req.params.id
-    const {error} = await supabase
-    .from('equipments')
-    .update(req.body)
-    .eq('id', id)
+app.put('/api/equipment/:id', async (req, res) => {
+  const { id } = req.params;
+  const { model, equipment_type, location } = req.body;
 
-    if (error) return res.status(400).json({ error: "Invalid room" });
-    return res.status(201).json({ message: "updated" });
-})
+  if (!model?.trim()) {
+    return res.status(400).json({ error: 'Model is required' });
+  }
+
+  if (!equipment_type?.trim()) {
+    return res.status(400).json({ error: 'Equipment type is required' });
+  }
+
+  const { error } = await supabase
+    .from('equipments')
+    .update({ model, equipment_type, location }) 
+    .eq('id', id);
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  return res.status(200).json({ message: 'Updated successfully' });
+});
 
 
 // Delete items

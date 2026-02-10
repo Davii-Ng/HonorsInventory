@@ -63,11 +63,23 @@ export default function App(){
 
 
   const handleAdd = async () => {
+  
+  if (!newItem.model.trim()) {
+    alert('Model is required');
+    return;
+  }
+  
+  if (!newItem.equipment_type.trim()) {
+    alert('Equipment type is required');
+    return;
+  }
+
   await fetch(`${import.meta.env.VITE_API_URL}/api/equipment`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newItem)
   });
+
 
   setIsAddOpen(false);
   load(); 
@@ -75,6 +87,18 @@ export default function App(){
 
   
   const handleEdit = async() =>{
+
+    if (!editItem?.model.trim()) {
+    alert('Model is required');
+    return;
+   }
+
+    if (!editItem?.equipment_type.trim()) {
+      alert('Equipment type is required');
+      return;
+    }
+
+
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${editItem?.id}`,{
       method: "PUT",
       headers : {"Content-Type": "application/json"},
