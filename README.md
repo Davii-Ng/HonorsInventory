@@ -27,7 +27,7 @@ Create `frontend/.env`:
 VITE_API_URL = http://localhost:3001
 
 If everything goes well it should be looking something like this:
-![alt text](image.png)
+![alt text](image-1.png)
 
 ## Features
 View, add, edit, delete, and transfer equipment between locations.
@@ -50,3 +50,4 @@ React + TypeScript | Express | Supabase (PostgreSQL)
 Changes: 
 1. Fix naming errors in init.SQL
 2. Changed the reference key in db from room_name to location_id
+3. A search bar that is still in progress, but functional

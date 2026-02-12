@@ -81,7 +81,6 @@ app.post('/api/equipment', async(req, res) => {
 app.put('/api/equipment/:id', async (req, res) => {
     const { model, equipment_type, location_id } = req.body;
 
-    console.log("UPDATE REQUEST:", { id: req.params.id, model, equipment_type, location_id });
     
     if (!model || model.trim() === '') {
         return res.status(400).json({ error: 'Model is required' });

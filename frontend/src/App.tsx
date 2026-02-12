@@ -107,8 +107,6 @@ const handleAdd = async () => {
   
   const handleEdit = async() =>{
 
-    console.log("editItem:", editItem);  // ← ADD THIS
-    console.log("location_id:", editItem?.location_id);  // ← ADD THIS
 
     if (!(editItem?.model.trim())) {
     alert('Model is required');
@@ -126,7 +124,6 @@ const handleAdd = async () => {
     location_id: editItem?.location_id
   };
   
-  console.log("SENDING TO BACKEND:", payload);
 
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${editItem?.id}`,{
       method: "PUT",
@@ -223,7 +220,6 @@ const handleAdd = async () => {
             <td>{equipment.equipment_type}</td>
             <td>{equipment.locations?.room_name || 'No location'}</td>
             <td><button className = "primary" onClick = {() => {
-              console.log("Clicked equipment:", equipment);
               setEditItem(equipment);  
               setIsModalOpen(true);
               }}>Edit</button></td>
