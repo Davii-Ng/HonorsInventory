@@ -44,21 +44,6 @@ app.get('/api/locations', async (req, res) => {
 });
 
 
-//Get full location data
-app.get('/api/equipment', async(req, res) => {
-    const {data, error} = await supabase
-    .from('equipments')
-    .select(`
-        *,
-        locations (
-            id,
-            room_name,
-            building_type
-        )
-    `)
-    if (error) return res.status(500).json({ error });
-    res.json(data)
-})
 
 //Add new items (auto-assign warehouse)
 app.post('/api/equipment', async(req, res) => {
@@ -95,6 +80,7 @@ app.post('/api/equipment', async(req, res) => {
 
 app.put('/api/equipment/:id', async (req, res) => {
     const { model, equipment_type, location_id } = req.body;
+
     
     if (!model || model.trim() === '') {
         return res.status(400).json({ error: 'Model is required' });

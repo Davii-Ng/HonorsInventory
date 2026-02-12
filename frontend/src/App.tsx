@@ -107,6 +107,7 @@ const handleAdd = async () => {
   
   const handleEdit = async() =>{
 
+
     if (!(editItem?.model.trim())) {
     alert('Model is required');
     return;
@@ -117,15 +118,17 @@ const handleAdd = async () => {
       return;
     }
 
+     const payload = {
+    model: editItem?.model,
+    equipment_type: editItem?.equipment_type,
+    location_id: editItem?.location_id
+  };
+  
 
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${editItem?.id}`,{
       method: "PUT",
       headers : {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        model: editItem?.model,
-        equipment_type: editItem?.equipment_type,
-        location: editItem?.location_id
-      })
+      body: JSON.stringify(payload)
     });
 
     const result = await res.json();
@@ -251,7 +254,6 @@ const handleAdd = async () => {
       <select value = {editItem?.location_id} onChange={(e) =>
           setEditItem({ ...editItem!, location_id: parseInt(e.target.value) })
         }>
-        <option value="">-- Select a location --</option>
         {location.map((loc) => (
         <option key={loc.id} value={loc.id}>{loc.room_name}</option>
   ))}
