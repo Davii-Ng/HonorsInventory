@@ -107,6 +107,9 @@ const handleAdd = async () => {
   
   const handleEdit = async() =>{
 
+    console.log("editItem:", editItem);  // ← ADD THIS
+    console.log("location_id:", editItem?.location_id);  // ← ADD THIS
+
     if (!(editItem?.model.trim())) {
     alert('Model is required');
     return;
@@ -117,15 +120,18 @@ const handleAdd = async () => {
       return;
     }
 
+     const payload = {
+    model: editItem?.model,
+    equipment_type: editItem?.equipment_type,
+    location_id: editItem?.location_id
+  };
+  
+  console.log("SENDING TO BACKEND:", payload);
 
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${editItem?.id}`,{
       method: "PUT",
       headers : {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        model: editItem?.model,
-        equipment_type: editItem?.equipment_type,
-        location: editItem?.location_id
-      })
+      body: JSON.stringify(payload)
     });
 
     const result = await res.json();
@@ -217,6 +223,7 @@ const handleAdd = async () => {
             <td>{equipment.equipment_type}</td>
             <td>{equipment.locations?.room_name || 'No location'}</td>
             <td><button className = "primary" onClick = {() => {
+              console.log("Clicked equipment:", equipment);
               setEditItem(equipment);  
               setIsModalOpen(true);
               }}>Edit</button></td>
@@ -251,7 +258,6 @@ const handleAdd = async () => {
       <select value = {editItem?.location_id} onChange={(e) =>
           setEditItem({ ...editItem!, location_id: parseInt(e.target.value) })
         }>
-        <option value="">-- Select a location --</option>
         {location.map((loc) => (
         <option key={loc.id} value={loc.id}>{loc.room_name}</option>
   ))}
