@@ -30,11 +30,22 @@ If everything goes well it should be looking something like this:
 ![alt text](image-1.png)
 
 ## Features
-View, add, edit, delete, and transfer equipment between locations.
+- View all equipment with current locations
+- Add new equipment (auto-assigned to warehouse)
+- Edit equipment and transfer between locations
+- Delete equipment
+- Search/filter equipment by model, type, or location
+- Input validation on frontend and backend
 
 ## Database Schema
 - **locations** - Room inventory (warehouse, classrooms, offices)
+  - `id` (PRIMARY KEY)
+  - `room_name` (UNIQUE)
+  - `building_type` (CHECK: Classroom, Office, Warehouse)
 - **equipments** - Equipment items with foreign key to locations
+  - `id` (PRIMARY KEY)
+  - `model`, `equipment_type`
+  - `location_id` (FOREIGN KEY → locations.id)
 
 ## API Endpoints
 - `GET /api/equipment` - Get all equipment with location details
@@ -48,6 +59,7 @@ React + TypeScript | Express | Supabase (PostgreSQL)
 
 
 Changes: 
-1. Fix naming errors in init.SQL
-2. Changed the reference key in db from room_name to location_id
-3. A search bar that is still in progress, but functional
+1. Fixed SQL table/column naming inconsistencies
+2. Changed foreign key from TEXT (`location` → `room_name`) to INTEGER (`location_id` → `locations.id`)
+3. Added input validation on both frontend and backend
+4. A search bar that is still in progress, but functional
